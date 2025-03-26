@@ -1,4 +1,4 @@
-/*TRANSPILED*/goog.loadModule(function(exports) {'use strict';/**
+/**
  * @license
  * Copyright The Closure Library Authors.
  * SPDX-License-Identifier: Apache-2.0
@@ -162,5 +162,3 @@ class Version {
   }
 }
 exports.Version = Version;
-
-;return exports;});

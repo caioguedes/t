@@ -1,88 +1,288 @@
-/*TRANSPILED*/goog.loadModule(function(exports) {'use strict';/*
+/**
+ * @license
+ * Copyright The Closure Library Authors.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
- Copyright The Closure Library Authors.
- SPDX-License-Identifier: Apache-2.0
-*/
-'use strict';
-goog.module("goog.asserts.dom");
+goog.module('goog.asserts.dom');
 goog.module.declareLegacyNamespace();
-const TagName = goog.require("goog.dom.TagName");
-const asserts = goog.require("goog.asserts");
-const element = goog.require("goog.dom.element");
-const assertIsElement = value => {
+
+const TagName = goog.require('goog.dom.TagName');
+const asserts = goog.require('goog.asserts');
+const element = goog.require('goog.dom.element');
+
+/**
+ * Checks if the value is a DOM Element if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @return {!Element} The value, likely to be a DOM Element when asserts are
+ *     enabled.
+ * @throws {!asserts.AssertionError} When the value is not an Element.
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsElement = (value) => {
   if (asserts.ENABLE_ASSERTS && !element.isElement(value)) {
-    asserts.fail(`Argument is not an Element; got: ${debugStringForType(value)}`);
+    asserts.fail(
+        `Argument is not an Element; got: ${debugStringForType(value)}`);
   }
-  return value;
+  return /** @type {!Element} */ (value);
 };
-const assertIsHtmlElement = value => {
+
+/**
+ * Checks if the value is a DOM HTMLElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value The value to check.
+ * @return {!HTMLElement} The value, likely to be a DOM HTMLElement when asserts
+ *     are enabled.
+ * @throws {!asserts.AssertionError} When the value is not an HTMLElement.
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlElement = (value) => {
   if (asserts.ENABLE_ASSERTS && !element.isHtmlElement(value)) {
-    asserts.fail(`Argument is not an HTML Element; got: ${debugStringForType(value)}`);
+    asserts.fail(
+        `Argument is not an HTML Element; got: ${debugStringForType(value)}`);
   }
-  return value;
+  return /** @type {!HTMLElement} */ (value);
 };
+
+/**
+ * Checks if the value is a DOM HTMLElement of the specified tag name / subclass
+ * if goog.asserts.ENABLE_ASSERTS is true.
+ * @param {*} value The value to check.
+ * @param {!TagName<T>} tagName The element tagName to verify the value against.
+ * @return {T} The value, likely to be a DOM HTMLElement when asserts are
+ *     enabled. The exact return type will match the parameterized type
+ *     of the tagName as specified in goog.dom.TagName.
+ * @throws {!asserts.AssertionError} When the value is not an HTMLElement with
+ *     the appropriate tagName.
+ * @template T
+ * @closurePrimitive {asserts.matchesReturn}
+ */
 const assertIsHtmlElementOfType = (value, tagName) => {
   if (asserts.ENABLE_ASSERTS && !element.isHtmlElementOfType(value, tagName)) {
-    asserts.fail(`Argument is not an HTML Element with tag name ` + `${tagName.toString()}; got: ${debugStringForType(value)}`);
+    asserts.fail(
+        `Argument is not an HTML Element with tag name ` +
+        `${tagName.toString()}; got: ${debugStringForType(value)}`);
   }
-  return value;
+  return /** @type {T} */ (value);
 };
-const assertIsHtmlAnchorElement = value => {
+
+/**
+ * Checks if the value is an HTMLAnchorElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLAnchorElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlAnchorElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.A);
 };
-const assertIsHtmlButtonElement = value => {
+
+/**
+ * Checks if the value is an HTMLButtonElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLButtonElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlButtonElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.BUTTON);
 };
-const assertIsHtmlLinkElement = value => {
+
+/**
+ * Checks if the value is an HTMLLinkElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLLinkElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlLinkElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.LINK);
 };
-const assertIsHtmlImageElement = value => {
+
+/**
+ * Checks if the value is an HTMLImageElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLImageElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlImageElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.IMG);
 };
-const assertIsHtmlAudioElement = value => {
+
+/**
+ * Checks if the value is an HTMLAudioElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLAudioElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlAudioElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.AUDIO);
 };
-const assertIsHtmlVideoElement = value => {
+
+/**
+ * Checks if the value is an HTMLVideoElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLVideoElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlVideoElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.VIDEO);
 };
-const assertIsHtmlInputElement = value => {
+
+/**
+ * Checks if the value is an HTMLInputElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLInputElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlInputElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.INPUT);
 };
-const assertIsHtmlTextAreaElement = value => {
+
+/**
+ * Checks if the value is an HTMLTextAreaElement if goog.asserts.ENABLE_ASSERTS
+ * is true.
+ * @param {*} value
+ * @return {!HTMLTextAreaElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlTextAreaElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.TEXTAREA);
 };
-const assertIsHtmlCanvasElement = value => {
+
+/**
+ * Checks if the value is an HTMLCanvasElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLCanvasElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlCanvasElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.CANVAS);
 };
-const assertIsHtmlEmbedElement = value => {
+
+/**
+ * Checks if the value is an HTMLEmbedElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLEmbedElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlEmbedElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.EMBED);
 };
-const assertIsHtmlFormElement = value => {
+
+/**
+ * Checks if the value is an HTMLFormElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLFormElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlFormElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.FORM);
 };
-const assertIsHtmlFrameElement = value => {
+
+/**
+ * Checks if the value is an HTMLFrameElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLFrameElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlFrameElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.FRAME);
 };
-const assertIsHtmlIFrameElement = value => {
+
+/**
+ * Checks if the value is an HTMLIFrameElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLIFrameElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlIFrameElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.IFRAME);
 };
-const assertIsHtmlObjectElement = value => {
+
+/**
+ * Checks if the value is an HTMLObjectElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLObjectElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlObjectElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.OBJECT);
 };
-const assertIsHtmlScriptElement = value => {
+
+/**
+ * Checks if the value is an HTMLScriptElement if goog.asserts.ENABLE_ASSERTS is
+ * true.
+ * @param {*} value
+ * @return {!HTMLScriptElement}
+ * @throws {!asserts.AssertionError}
+ * @closurePrimitive {asserts.matchesReturn}
+ */
+const assertIsHtmlScriptElement = (value) => {
   return assertIsHtmlElementOfType(value, TagName.SCRIPT);
 };
-const debugStringForType = value => {
+
+/**
+ * Returns a string representation of a value's type.
+ * @param {*} value An object, or primitive.
+ * @return {string} The best display name for the value.
+ */
+const debugStringForType = (value) => {
   if (goog.isObject(value)) {
     try {
-      return value.constructor.displayName || value.constructor.name || Object.prototype.toString.call(value);
+      return /** @type {string|undefined} */ (value.constructor.displayName) ||
+          value.constructor.name ||
+          Object.prototype.toString.call(value);
     } catch (e) {
-      return "\x3cobject could not be stringified\x3e";
+      return '<object could not be stringified>';
     }
   } else {
-    return value === undefined ? "undefined" : value === null ? "null" : typeof value;
+    return value === undefined ? 'undefined' :
+                                 value === null ? 'null' : typeof value;
   }
 };
-exports = {assertIsElement, assertIsHtmlElement, assertIsHtmlElementOfType, assertIsHtmlAnchorElement, assertIsHtmlButtonElement, assertIsHtmlLinkElement, assertIsHtmlImageElement, assertIsHtmlAudioElement, assertIsHtmlVideoElement, assertIsHtmlInputElement, assertIsHtmlTextAreaElement, assertIsHtmlCanvasElement, assertIsHtmlEmbedElement, assertIsHtmlFormElement, assertIsHtmlFrameElement, assertIsHtmlIFrameElement, assertIsHtmlObjectElement, assertIsHtmlScriptElement,};
 
-;return exports;});
+exports = {
+  assertIsElement,
+  assertIsHtmlElement,
+  assertIsHtmlElementOfType,
+  assertIsHtmlAnchorElement,
+  assertIsHtmlButtonElement,
+  assertIsHtmlLinkElement,
+  assertIsHtmlImageElement,
+  assertIsHtmlAudioElement,
+  assertIsHtmlVideoElement,
+  assertIsHtmlInputElement,
+  assertIsHtmlTextAreaElement,
+  assertIsHtmlCanvasElement,
+  assertIsHtmlEmbedElement,
+  assertIsHtmlFormElement,
+  assertIsHtmlFrameElement,
+  assertIsHtmlIFrameElement,
+  assertIsHtmlObjectElement,
+  assertIsHtmlScriptElement,
+};

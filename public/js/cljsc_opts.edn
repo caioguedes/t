@@ -1,1 +1,1 @@
-{:browser-repl true, :asset-path "js", :output-dir "public/js", :main t.core, :output-to "public/js/main.js", :aot-cache true}
+{:verbose true, :asset-path "js", :output-dir "public/js", :optimizations :advanced, :main t.core, :output-to "public/js/main.js", :aot-cache true}
