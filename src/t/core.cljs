@@ -1,6 +1,9 @@
-(ns t.core)
+(ns t.core
+  (:require [reagent.dom.client :as rd]))
 
-(defonce root (js/document.getElementById "root"))
+(defn app []
+  [:h1 "Hello! Again!"])
 
-(set! (.-innerHTML root) "<h1>Hello World! 🤩</h1>")
+(defonce root (rd/create-root (js/document.getElementById "root")))
 
+(rd/render root [app])
