@@ -1,22 +1,13 @@
 (ns t.core
   (:require [reagent.dom.client :as rd]
             [reagent.core :as r]
-            [clojure.string :as str]))
+            [reitit.frontend.easy :as rfe]
+            [reitit.frontend :as rf]
+            [cljs.pprint :refer [pprint]]))
 
-(def state (r/atom {:route "/"}))
+(defonce match (r/atom nil))
 
-;; History
-(defn push-state [event]
-  (let [event (or event js/window.event)]
-    (.preventDefault event)
-    (js/history.pushState {} "" (.-href event.target))
-    (swap! state assoc :route (str/replace-first js/location.hash "#" ""))))
-
-;; Components
-(defn link [href children]
-  [:a {:on-click push-state :href (str "#" href)} children])
-
-;; Page
+;; Pages
 (defn home-page []
   [:h1 "Home"])
 
@@ -26,26 +17,35 @@
 (defn notfound-page []
   [:h1 "Not Found!"])
 
-;; Router
-(defn router [path]
-  (cond
-    (or (= "/home" path) (= "" path) (= "/" path)) [home-page]
-    (= "/contact" path) [contact-page]
-    :else [notfound-page]))
+(defn navbar []
+  [:ul
+   [:li
+    [:a {:href (rfe/href :home)} "Home"]]
+   [:li
+    [:a {:href (rfe/href :contact)} "Contact"]]])
 
 ;; App
 (defn app []
   [:<>
-   [:ul
-    [:li
-     [link "/home" "Home"]]
-    [:li
-     [link "/contact" "Contact"]]]
-   (router (:route @state))
-   [:pre (pr-str @state)]])
+   [navbar]
+   (when @match
+     (let [view (:view (:data @match))]
+       [view @match]))
+   [:pre (with-out-str (cljs.pprint/pprint @match))]])
+
+(def routes
+  [["/"
+    ["" {:name :home
+         :view home-page}]
+    ["contact" {:name :contact
+                :view contact-page}]]])
 
 (defonce root (rd/create-root (js/document.getElementById "root")))
 
 (defn ^:dev/after-load init []
-  (set! (.-onpopstate js/window) push-state)
+  (rfe/start!
+   (rf/router routes)
+   (fn [new-match]
+     (reset! match new-match))
+   {:use-fragment true})
   (rd/render root [app]))
